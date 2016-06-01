@@ -6,7 +6,7 @@
 -- Generation Time: May 31, 2016 at 10:52 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
-
+use yiibio;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `yiiplus`
+-- Database: `yiibio`
 --
 
 -- --------------------------------------------------------
@@ -122,7 +122,10 @@ CREATE TABLE `credentials` (
 
 -- --------------------------------------------------------
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 -- --------------------------------------------------------
 
 --

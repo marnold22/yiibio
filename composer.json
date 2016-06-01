@@ -17,7 +17,7 @@
     },
     "repositories": [
     {
-        "type": "vcs",
+        "type": "git",
         "url": "http://github.com/marnold22/yiibio"
     }
     ],

@@ -15,12 +15,6 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*"
     },
-    "repositories": [
-    {
-        "type": "git",
-        "url": "http://github.com/marnold22/yiibio"
-    }
-    ],
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
         "yiisoft/yii2-debug": "*",

@@ -18,7 +18,7 @@
     "repositories": [
     {
         "type": "vcs",
-        "url": "https://github.com/marnold22/yiibio"
+        "url": "git@github.com:marnold22/yiibio"
     }
     ],
     "require-dev": {

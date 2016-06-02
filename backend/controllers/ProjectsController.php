@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
+use yii\filters\AccessControl;
 use backend\models\Projects;
 use backend\models\ProjectsSearch;
 use yii\web\Controller;
@@ -24,6 +25,21 @@ class ProjectsController extends Controller
     public function behaviors()
     {
         return [
+                'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create', 'update', 'index', 'view'],
+                'rules' => [
+                    [
+                        'allow' => false,
+                        'verbs' => ['POST']
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    //everything else is denied
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

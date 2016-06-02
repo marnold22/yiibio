@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
+use yii\filters\AccessControl;
 use backend\models\SiteData;
 use backend\models\SiteDataSearch;
 use yii\web\Controller;
@@ -22,6 +23,21 @@ class SiteDataController extends Controller
     public function behaviors()
     {
         return [
+                'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create', 'update', 'index', 'view'],
+                'rules' => [
+                    [
+                        'allow' => false,
+                        'verbs' => ['POST']
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    //everything else is denied
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

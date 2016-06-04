@@ -39,6 +39,8 @@ AppAsset::register($this);
         ['label' => 'Projects', 'url' => ['/projects/index']],
         ['label' => 'Data', 'url' => ['/site-data/index']],
         ['label' => 'User', 'url' => ['/user/index']],
+        ['label' => 'Assignment', 'url' => ['/auth-assignment/index']],
+        ['label' => 'Rules', 'url' => ['/auth-item/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];

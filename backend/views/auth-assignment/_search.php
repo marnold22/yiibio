@@ -4,25 +4,22 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\SiteDataSearch */
+/* @var $model backend\models\AuthAssignmentSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-
-<!-- Searches the site-data table -->
-
-<div class="site-data-search">
+<div class="auth-assignment-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'DID') ?>
+    <?= $form->field($model, 'item_name') ?>
 
-    <?= $form->field($model, 'PID') ?>
+    <?= $form->field($model, 'user_id') ?>
 
-    <?= $form->field($model, 'Location') ?>
+    <?= $form->field($model, 'created_at') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

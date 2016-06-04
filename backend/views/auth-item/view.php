@@ -4,22 +4,19 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\SiteData */
+/* @var $model backend\models\AuthItem */
 
-$this->title = $model->DID;
-$this->params['breadcrumbs'][] = ['label' => 'Site Datas', 'url' => ['index']];
+$this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Auth Items', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-<!-- Displays all content for site-data table-->
-
-<div class="site-data-view">
+<div class="auth-item-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'DID' => $model->DID, 'PID' => $model->PID], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'DID' => $model->DID, 'PID' => $model->PID], [
+        <?= Html::a('Update', ['update', 'id' => $model->name], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->name], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -31,9 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'DID',
-            'PID',
-            'Location:ntext',
+            'name',
+            'type',
+            'description:ntext',
+            'rule_name',
+            'data:ntext',
+            'created_at',
+            'updated_at',
         ],
     ]) ?>
 

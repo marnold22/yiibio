@@ -4,18 +4,16 @@ namespace backend\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use backend\models\SiteData;
-use backend\models\SiteDataSearch;
+use backend\models\AuthAssignment;
+use backend\models\AuthAssignmentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
-use yii\web\ForbiddenHttpException;
 
 /**
- * SiteDataController implements the CRUD actions for SiteData model.
+ * AuthAssignmentController implements the CRUD actions for AuthAssignment model.
  */
-class SiteDataController extends Controller
+class AuthAssignmentController extends Controller
 {
     /**
      * @inheritdoc
@@ -48,12 +46,12 @@ class SiteDataController extends Controller
     }
 
     /**
-     * Lists all SiteData models.
+     * Lists all AuthAssignment models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SiteDataSearch();
+        $searchModel = new AuthAssignmentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -63,74 +61,52 @@ class SiteDataController extends Controller
     }
 
     /**
-     * Displays a single SiteData model.
-     * @param integer $DID
-     * @param integer $PID
+     * Displays a single AuthAssignment model.
+     * @param string $item_name
+     * @param string $user_id
      * @return mixed
      */
-    public function actionView($DID, $PID)
+    public function actionView($item_name, $user_id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($DID, $PID),
+            'model' => $this->findModel($item_name, $user_id),
         ]);
     }
 
     /**
-     * Creates a new SiteData model.
+     * Creates a new AuthAssignment model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        if( Yii::$app->user->can('add-data') )
-        {
-            $model = new SiteData();
+        if( Yii::$app->user->can( 'give-permissions' ) )
+        {    
+            $model = new AuthAssignment();
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-                //get instance of uploaded file
-                $model->file = UploadedFile::getInstance($model, 'file');
-
-                $loc = 'uploads/' . $model->PID . "-" . $model->file->baseName . '-'. $model->DID . '.' . $model->file->extension;
-
-                //$loc = 'uploads/'. $model->file->baseName . '.' . $model->file->extension;
-                if($model->validate()) {
-                    $model->file->saveAs($loc);
-                }
-
-                $model->Location = $loc;
-                if($model->save()) {
-                    echo "success";
-                }
-                else
-                    echo "failed to write file name to db.";
-
-
-                return $this->redirect(['view', 'DID' => $model->DID, 'PID' => $model->PID, 'Location' => $model->Location]);
+                return $this->redirect(['view', 'item_name' => $model->item_name, 'user_id' => $model->user_id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
                 ]);
             }
-        } else {
-            throw new ForbiddenHttpException;
         }
     }
 
-
     /**
-     * Updates an existing SiteData model.
+     * Updates an existing AuthAssignment model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $DID
-     * @param integer $PID
+     * @param string $item_name
+     * @param string $user_id
      * @return mixed
      */
-    public function actionUpdate($DID, $PID)
+    public function actionUpdate($item_name, $user_id)
     {
-        $model = $this->findModel($DID, $PID);
+        $model = $this->findModel($item_name, $user_id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'DID' => $model->DID, 'PID' => $model->PID]);
+            return $this->redirect(['view', 'item_name' => $model->item_name, 'user_id' => $model->user_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -139,30 +115,30 @@ class SiteDataController extends Controller
     }
 
     /**
-     * Deletes an existing SiteData model.
+     * Deletes an existing AuthAssignment model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $DID
-     * @param integer $PID
+     * @param string $item_name
+     * @param string $user_id
      * @return mixed
      */
-    public function actionDelete($DID, $PID)
+    public function actionDelete($item_name, $user_id)
     {
-        $this->findModel($DID, $PID)->delete();
+        $this->findModel($item_name, $user_id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the SiteData model based on its primary key value.
+     * Finds the AuthAssignment model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $DID
-     * @param integer $PID
-     * @return SiteData the loaded model
+     * @param string $item_name
+     * @param string $user_id
+     * @return AuthAssignment the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($DID, $PID)
+    protected function findModel($item_name, $user_id)
     {
-        if (($model = SiteData::findOne(['DID' => $DID, 'PID' => $PID])) !== null) {
+        if (($model = AuthAssignment::findOne(['item_name' => $item_name, 'user_id' => $user_id])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

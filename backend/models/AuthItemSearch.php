@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\SiteData;
+use backend\models\AuthItem;
 
 /**
- * SiteDataSearch represents the model behind the search form about `backend\models\SiteData`.
+ * AuthItemSearch represents the model behind the search form about `backend\models\AuthItem`.
  */
-class SiteDataSearch extends SiteData
+class AuthItemSearch extends AuthItem
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class SiteDataSearch extends SiteData
     public function rules()
     {
         return [
-            [['DID', 'PID'], 'integer'],
-            [['Location'], 'safe'],
+            [['name', 'description', 'rule_name', 'data'], 'safe'],
+            [['type', 'created_at', 'updated_at'], 'integer'],
         ];
     }
 
@@ -41,7 +41,7 @@ class SiteDataSearch extends SiteData
      */
     public function search($params)
     {
-        $query = SiteData::find();
+        $query = AuthItem::find();
 
         // add conditions that should always apply here
 
@@ -59,11 +59,15 @@ class SiteDataSearch extends SiteData
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'DID' => $this->DID,
-            'PID' => $this->PID,
+            'type' => $this->type,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'Location', $this->Location]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'rule_name', $this->rule_name])
+            ->andFilterWhere(['like', 'data', $this->data]);
 
         return $dataProvider;
     }

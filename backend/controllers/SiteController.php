@@ -18,7 +18,7 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
+                'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['create', 'update', 'index', 'view'],
                 'rules' => [
@@ -67,8 +67,6 @@ class SiteController extends Controller
     **/
     public function actionLogin()
     {
-        if( Yii::$app->user->can('backendAdmin') )
-        {
             if (!\Yii::$app->user->isGuest) {
                 return $this->goHome();
             }
@@ -81,7 +79,6 @@ class SiteController extends Controller
                     'model' => $model,
                 ]);
             }
-        }
     }
 
     public function actionLogout()

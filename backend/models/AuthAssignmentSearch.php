@@ -5,12 +5,12 @@ namespace backend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\SiteData;
+use backend\models\AuthAssignment;
 
 /**
- * SiteDataSearch represents the model behind the search form about `backend\models\SiteData`.
+ * AuthAssignmentSearch represents the model behind the search form about `backend\models\AuthAssignment`.
  */
-class SiteDataSearch extends SiteData
+class AuthAssignmentSearch extends AuthAssignment
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class SiteDataSearch extends SiteData
     public function rules()
     {
         return [
-            [['DID', 'PID'], 'integer'],
-            [['Location'], 'safe'],
+            [['item_name', 'user_id'], 'safe'],
+            [['created_at'], 'integer'],
         ];
     }
 
@@ -41,7 +41,7 @@ class SiteDataSearch extends SiteData
      */
     public function search($params)
     {
-        $query = SiteData::find();
+        $query = AuthAssignment::find();
 
         // add conditions that should always apply here
 
@@ -59,11 +59,11 @@ class SiteDataSearch extends SiteData
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'DID' => $this->DID,
-            'PID' => $this->PID,
+            'created_at' => $this->created_at,
         ]);
 
-        $query->andFilterWhere(['like', 'Location', $this->Location]);
+        $query->andFilterWhere(['like', 'item_name', $this->item_name])
+            ->andFilterWhere(['like', 'user_id', $this->user_id]);
 
         return $dataProvider;
     }

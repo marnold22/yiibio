@@ -21,6 +21,7 @@ use yii\web\Controller;
 use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use kato\DropZone;
 
 /**
  * Site controller
@@ -219,17 +220,25 @@ class SiteController extends Controller
     */
     public function actionData()
     {
+        $fileName = 'file';
+        $uploadPath = '@web/uploads';
 
-        $model = new UploadForm();
-        if (Yii::$app->request->isPost) {
-            $model->file = UploadedFile::getInstance($model, 'file');
+        if (isset($_FILES[$fileName])) {
+            $file = \yii\web\UploadedFile::getInstanceByName($fileName);
 
-            if ($model->validate()) {
-                $model->file->saveAs('uploads/' . $model->file->baseName . '.' . $model->file->extension);
+            //Print file data
+            //print_r($file);
+
+            if ($file->saveAs($uploadPath . '/' . $file->name)) {
+                //Now save file data to database
+
+                echo \yii\helpers\Json::encode($file);
             }
+        } else {
+            return $this->render('projects');
         }
 
-        return $this->render('projects', ['model' => $model]); 
+        return false;
     }
 
 

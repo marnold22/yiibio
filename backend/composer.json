@@ -1,0 +1,5 @@
+{
+    "require": {
+        "perminder-klair/yii2-dropzone": "dev-master"
+    }
+}
